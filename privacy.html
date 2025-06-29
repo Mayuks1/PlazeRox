@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - PlazeRox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Page Styles --- */
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #121212; color: #e0e0e0; }
+        a { text-decoration: none; color: #00aaff; }
+
+        /* --- Consistent Header & Side Nav Styles --- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background-color: #1e1e1e; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .menu-toggle { font-size: 1.8rem; background: none; border: none; color: #fff; cursor: pointer; padding: 0; }
+        .logo { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #00aaff; }
+        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; }
+        .btn-signup { background: linear-gradient(45deg, #00aaff, #0077cc); color: #fff; text-decoration: none; }
+        .btn-account { background-color: #1d976c; color: #fff; text-decoration: none; }
+        .side-nav { height: 100%; width: 280px; position: fixed; z-index: 1002; top: 0; left: 0; background-color: #1e1e1e; overflow-x: hidden; transition: 0.3s; padding-top: 60px; transform: translateX(-100%); }
+        .side-nav.active { transform: translateX(0); }
+        .side-nav .close-btn { position: absolute; top: 15px; right: 25px; font-size: 36px; color: #818181; cursor: pointer; }
+        .side-nav h4 { padding: 8px 8px 8px 32px; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #00aaff; text-transform: uppercase; margin: 15px 0 5px 0; }
+        .side-nav a { padding: 8px 8px 8px 32px; text-decoration: none; font-size: 1.1rem; color: #b0b0b0; display: block; transition: 0.3s; }
+        .side-nav a:hover { color: #fff; }
+        .side-nav .thankyou { padding: 8px 8px 8px 32px; font-size: 1rem; color: #818181; position: absolute; bottom: 20px; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1001; }
+        #overlay.active { display: block; }
+
+        /* --- Main Content for Privacy Policy Page --- */
+        main { padding: 2rem 1rem; }
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00aaff;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+        .content-card {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #333;
+        }
+        .content-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+        }
+        .content-card h2:first-of-type {
+            margin-top: 0;
+        }
+        .content-card p, .content-card li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+        }
+        .content-card ul {
+            padding-left: 20px;
+        }
+        .content-card strong {
+            color: #fff;
+            font-weight: 700;
+        }
+        .effective-date {
+            text-align: center;
+            color: #888;
+            margin-bottom: 2rem;
+            margin-top: -1rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <a href="index.html"><img src="logo.png" alt="PlazeRox Logo" class="logo"></a>
+        </div>
+        <div class="header-right" id="auth-container">
+            <!-- Auth button loads here -->
+        </div>
+    </header>
+
+    <!-- Side Navigation Menu (same as index.html) -->
+    <div id="side-nav" class="side-nav">
+        <span class="close-btn" id="close-btn">×</span>
+        <h4>Games</h4>
+        <a href="race.html">Racing</a>
+        <a href="brain.html">Brain</a>
+        <a href="timepass.html">Timepass</a>
+        <a href="multi.html">Multiple</a>
+        <a href="solo.html">Sologames</a>
+        <h4>Website</h4>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="links.html">Our Links</a>
+        <a href="goal.html">Our Goal</a>
+        <div class="thankyou">Thankyou..</div>
+    </div>
+    <div id="overlay"></div>
+
+    <main>
+        <h1 class="main-title">Privacy Policy</h1>
+        <p class="effective-date">Last updated: [6/28/25]</p>
+
+        <div class="content-card">
+            <p>Your privacy is of the utmost importance to us at <strong>PlazeRox</strong>. This Privacy Policy document outlines the types of information we collect and how we use it.</p>
+
+            <h2>Information We Collect</h2>
+            <p>To provide you with a personalized experience, we collect the following information:</p>
+            <ul>
+                <li><strong>Account Information:</strong> When you sign up for an account, we ask for your <strong>Name</strong> and <strong>Email Address</strong>. Your email is used as a unique identifier for your account and for essential communications. Your password is encrypted and is never visible to us.</li>
+                <li><strong>Usage Data:</strong> When you play a game while logged in, we record that activity to populate your "Play History" on your account page. This includes the game's name, its image, and the time you played.</li>
+            </ul>
+
+            <h2>How We Use Your Information</h2>
+            <p>The information we collect is used solely for the following purposes:</p>
+            <ul>
+                <li>To create and manage your account, allowing you to sign in and access features like your Play History.</li>
+                <li>To personalize your experience on our website.</li>
+                <li>To respond to your support requests and inquiries sent to our help email.</li>
+            </ul>
+            <p>We want to be perfectly clear: <strong>We do not sell, trade, or rent your personal information to any third parties.</strong></p>
+
+            <h2>Data Security and Deletion</h2>
+            <p>We are committed to protecting your data. We leverage the robust security infrastructure of Firebase to safeguard your information. Furthermore, we empower you with full control over your data. From your account page, you have the option to <strong>permanently delete your account</strong>. This action will erase your account information (Name, Email) and all associated Play History from our records.</p>
+            
+            <h2>Third-Party Links</h2>
+            <p>Our website contains links to third-party games and websites. Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.</p>
+
+            <h2>Contact & Help</h2>
+            <p>If you have any questions about this Privacy Policy or need help with your account, please do not hesitate to contact us. Our official support email is:</p>
+            <p style="text-align: center; font-size: 1.2rem;">
+                <strong><a href="mailto:mayuksen948@gmail.com">mayuksen948@gmail.com</a></strong>
+            </p>
+        </div>
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const authContainer = document.getElementById('auth-container');
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeBtn = document.getElementById('close-btn');
+            const sideNav = document.getElementById('side-nav');
+            const overlay = document.getElementById('overlay');
+
+            // --- Menu Logic ---
+            menuToggle.addEventListener('click', () => {
+                sideNav.classList.add('active');
+                overlay.classList.add('active');
+            });
+            closeBtn.addEventListener('click', () => {
+                sideNav.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            overlay.addEventListener('click', () => {
+                sideNav.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // --- Auth Button Display Logic ---
+            auth.onAuthStateChanged(user => {
+                authContainer.innerHTML = user 
+                    ? `<a href="account.html" class="btn btn-account">Your Account</a>`
+                    : `<a href="sign.html" class="btn btn-signup">Sign Up</a>`;
+            });
+        });
+    </script>
+</body>
+</html>

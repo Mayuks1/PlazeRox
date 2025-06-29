@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Account - PlazeRox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: #121212; color: #e0e0e0; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #1e1e1e; border-bottom: 2px solid #333; }
+        .header-left { display: flex; align-items: center; }
+        .logo { height: 50px; width: 50px; margin-right: 15px; border-radius: 50%; object-fit: cover; border: 2px solid #00aaff; }
+        .logo-name { font-family: 'Orbitron', sans-serif; font-size: 1.8rem; color: #fff; text-transform: uppercase; }
+        .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        .loading-message { text-align: center; font-size: 1.5rem; padding: 3rem; }
+        .account-content { display: none; /* Hidden by default, shown by JS */ }
+        .card { background-color: #1e1e1e; border-radius: 10px; padding: 1.5rem; margin-bottom: 2rem; }
+        h2 { font-family: 'Orbitron', sans-serif; color: #00aaff; border-bottom: 2px solid #333; padding-bottom: 0.5rem; margin-top: 0; }
+        .info-item { display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid #2a2a2a; }
+        .info-item:last-child { border-bottom: none; }
+        .info-item .label { font-weight: bold; color: #aaa; }
+        .info-item .value { color: #fff; }
+        .play-history-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; margin-top: 1rem; }
+        .history-card { background-color: #2a2a2a; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; }
+        .history-card img { width: 100%; height: 70px; object-fit: cover; display: block; }
+        .history-card p { font-size: 0.9rem; text-align: center; padding: 8px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .actions-container { display: flex; justify-content: space-between; gap: 1rem; }
+        .action-btn { flex-grow: 1; padding: 12px; border: none; border-radius: 5px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: all 0.3s ease; }
+        .btn-logout { background-color: #0077cc; color: white; }
+        .btn-logout:hover { background-color: #00aaff; }
+        .btn-delete { background-color: #c0392b; color: white; }
+        .btn-delete:hover { background-color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <a href="index.html"><img src="logo.png" alt="PlazeRox Logo" class="logo"></a>
+            <span class="logo-name">PlazeRox</span>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Show a loading message initially -->
+        <p class="loading-message" id="loading-message">Verifying your session...</p>
+        
+        <!-- This content will be shown by JS once the user is confirmed -->
+        <main id="account-content" class="account-content">
+            <div class="card">
+                <h2>Your Details</h2>
+                <div class="info-item"><span class="label">Name</span> <span id="user-name" class="value"></span></div>
+                <div class="info-item"><span class="label">Email</span> <span id="user-email" class="value"></span></div>
+                <div class="info-item"><span class="label">Password</span> <span class="value">********</span></div>
+            </div>
+            
+            <div class="card">
+                <h2>Play History</h2>
+                <div id="history-grid" class="play-history-grid"><p>No games played yet.</p></div>
+            </div>
+
+            <div class="card">
+                <h2>Account Actions</h2>
+                <div class="actions-container">
+                    <button id="logout-btn" class="action-btn btn-logout">Logout</button>
+                    <button id="delete-btn" class="action-btn btn-delete">Delete Account</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        // --- Account Page Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingMessage = document.getElementById('loading-message');
+            const accountContent = document.getElementById('account-content');
+            
+            // This listener waits for Firebase to confirm the auth state
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // --- USER IS LOGGED IN ---
+                    // Hide loading message and show the main content
+                    loadingMessage.style.display = 'none';
+                    accountContent.style.display = 'block';
+
+                    // Now that we are SURE a user exists, we can get elements and attach listeners
+                    const userNameEl = document.getElementById('user-name');
+                    const userEmailEl = document.getElementById('user-email');
+                    const historyGrid = document.getElementById('history-grid');
+                    const logoutBtn = document.getElementById('logout-btn');
+                    const deleteBtn = document.getElementById('delete-btn');
+
+                    // 1. Populate User Details
+                    userNameEl.textContent = user.displayName || 'N/A';
+                    userEmailEl.textContent = user.email;
+
+                    // 2. Load Play History
+                    const historyRef = database.ref(`user_history/${user.uid}`).orderByChild('playedAt').limitToLast(12);
+                    historyRef.on('value', (snapshot) => {
+                        if (snapshot.exists()) {
+                            historyGrid.innerHTML = '';
+                            const historyData = [];
+                            snapshot.forEach(child => { historyData.push({ id: child.key, ...child.val() }); });
+                            historyData.reverse().forEach(game => {
+                                const card = document.createElement('a');
+                                card.href = `game.html?id=${game.id}`;
+                                card.className = 'history-card';
+                                card.innerHTML = `<img src="${game.imageUrl}" alt="${game.gameName}"><p>${game.gameName}</p>`;
+                                historyGrid.appendChild(card);
+                            });
+                        } else {
+                            historyGrid.innerHTML = '<p>No games played yet. Go play some!</p>';
+                        }
+                    });
+                    
+                    // 3. Attach Logout Button Listener
+                    logoutBtn.addEventListener('click', () => {
+                        auth.signOut().then(() => {
+                            window.location.href = 'index.html';
+                        });
+                    });
+
+                    // 4. Attach Delete Account Button Listener
+                    deleteBtn.addEventListener('click', () => {
+                        if (confirm('Are you absolutely sure? This will permanently delete your account and play history. This action cannot be undone.')) {
+                            database.ref(`user_history/${user.uid}`).remove()
+                                .then(() => user.delete())
+                                .then(() => {
+                                    alert('Your account has been successfully deleted.');
+                                    window.location.href = 'index.html';
+                                })
+                                .catch((error) => {
+                                    console.error('Error deleting account:', error);
+                                    alert('Error: ' + error.message + '\n\nFor security reasons, this may require a recent login. Please log out and log back in before trying again.');
+                                });
+                        }
+                    });
+
+                } else {
+                    // --- USER IS NOT LOGGED IN ---
+                    // Redirect them to the login page
+                    window.location.href = 'login.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

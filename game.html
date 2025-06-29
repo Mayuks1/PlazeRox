@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlazeRox Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Page Styles --- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        /* --- Dark Theme Header --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: #1e1e1e;
+            border-bottom: 2px solid #333;
+        }
+        .logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #00aaff;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all .3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-signup {
+            background: linear-gradient(45deg, #00aaff, #0077cc);
+            color: #fff;
+        }
+        .btn-account {
+            background-color: #1d976c;
+            color: #fff;
+        }
+
+        /* --- Main Content Area --- */
+        main {
+            padding: 1.5rem 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- Game Detail Card --- */
+        .game-detail-card {
+            background-color: #212121;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .game-detail-image {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+        .game-detail-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            color: #fff;
+            margin: 0;
+        }
+        .game-detail-description {
+            font-size: 1rem;
+            color: #b3b3b3;
+            margin: 0.5rem 0 1rem 0;
+            line-height: 1.6;
+        }
+
+        /* --- Standalone Play Now Button --- */
+        .play-now-btn {
+            display: block;
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            background: linear-gradient(90deg, #ff6a6a, #ffc371);
+        }
+
+        /* --- More Games Section --- */
+        .more-games {
+            margin-top: 2rem;
+        }
+        .more-games h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00aaff;
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .more-game-card {
+            background-color: #212121;
+            border-radius: 12px;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+        }
+        .more-game-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+        .more-game-card .game-name {
+            font-weight: 700;
+            padding: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html"><img src="logo.png" alt="PlazeRox Logo" class="logo"></a>
+        <div class="header-right" id="auth-container">
+            <!-- Auth button loads here -->
+        </div>
+    </header>
+
+    <main>
+        <div id="game-detail-content">
+             <p style="text-align: center; font-size: 1.2rem;">Loading Game...</p>
+        </div>
+        
+        <a href="#" id="play-now-button" class="play-now-btn" style="display: none;">PLAY NOW</a>
+
+        <section class="more-games" id="more-games-section" style="display: none;">
+            <h2>More Games</h2>
+            <div class="games-grid" id="more-games-grid"></div>
+        </section>
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    <script>
+        // --- THIS IS THE FIX: The full Firebase configuration is restored ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const authContainer = document.getElementById('auth-container');
+            const gameDetailContent = document.getElementById('game-detail-content');
+            const playNowButton = document.getElementById('play-now-button');
+            const moreGamesSection = document.getElementById('more-games-section');
+            const moreGamesGrid = document.getElementById('more-games-grid');
+
+            auth.onAuthStateChanged(user => {
+                authContainer.innerHTML = user 
+                    ? `<a href="account.html" class="btn btn-account">Your Account</a>`
+                    : `<a href="sign.html" class="btn btn-signup">Sign Up</a>`;
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const gameId = urlParams.get('id');
+
+            if (!gameId) {
+                gameDetailContent.innerHTML = "<h2>Error: Game ID not found.</h2>";
+                return;
+            }
+
+            function displayMainGame() {
+                database.ref('games/' + gameId).once('value', snapshot => {
+                    const game = snapshot.val();
+                    if (game) {
+                        document.title = `${game.name} - PlazeRox`;
+                        gameDetailContent.innerHTML = `
+                            <div class="game-detail-card">
+                                <img src="${game.imageUrl}" alt="${game.name}" class="game-detail-image">
+                                <h1 class="game-detail-title">${game.name}</h1>
+                                <p class="game-detail-description">${game.description || ' '}</p>
+                            </div>`;
+                        playNowButton.href = game.gameUrl;
+                        playNowButton.style.display = 'block';
+                        
+                        playNowButton.addEventListener('click', e => {
+                            const user = auth.currentUser;
+                            if (user) {
+                                e.preventDefault();
+                                database.ref(`user_history/${user.uid}/${gameId}`).set({
+                                    gameName: game.name,
+                                    imageUrl: game.imageUrl,
+                                    playedAt: firebase.database.ServerValue.TIMESTAMP
+                                }).then(() => window.open(e.target.href, '_blank'));
+                            }
+                        });
+                    } else {
+                        gameDetailContent.innerHTML = "<h2>Error 404: Game not found.</h2>";
+                    }
+                });
+            }
+
+            function displayMoreGames() {
+                database.ref('games').once('value', snapshot => {
+                    const allGames = snapshot.val();
+                    if (allGames) {
+                        let gamesList = Object.keys(allGames).map(key => ({ id: key, ...allGames[key] }));
+                        gamesList = gamesList.filter(game => game.id !== gameId);
+
+                        if (gamesList.length > 0) {
+                            moreGamesGrid.innerHTML = '';
+                            shuffleArray(gamesList).slice(0, 4).forEach(game => {
+                                const card = document.createElement('a');
+                                card.href = `game.html?id=${game.id}`;
+                                card.className = 'more-game-card';
+                                card.innerHTML = `
+                                    <img src="${game.imageUrl}" alt="${game.name}">
+                                    <div class="game-name">${game.name}</div>`;
+                                moreGamesGrid.appendChild(card);
+                            });
+                            moreGamesSection.style.display = 'block';
+                        }
+                    }
+                });
+            }
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            displayMainGame();
+            displayMoreGames();
+        });
+    </script>
+</body>
+</html>

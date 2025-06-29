@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =================================================== -->
+    <!-- ============== SEO & META TAGS START ============== -->
+    <!-- =================================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlazeRox: Play Free Online Games Instantly - No Ads, No Downloads</title>
+    <meta name="title" content="PlazeRox: Play Free Online Games Instantly - No Ads, No Downloads">
+    <meta name="description" content="Discover and play a huge collection of free online games at PlazeRox. Enjoy instant access to racing, brain, and puzzle games with zero ads and no downloads required. Safe, fun, and free forever!">
+    <meta name="keywords" content="free games, online games, play games, instant games, no download games, ad-free games, browser games, plazerox, racing games, puzzle games">
+    <meta name="author" content="PlazeRox">
+    <!-- TODO: IMPORTANT! Replace 'https://your-domain.com' with your actual website domain -->
+    <link rel="canonical" href="https://your-domain.com/index.html">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="PlazeRox: Play Free Online Games Instantly">
+    <meta property="og:description" content="Enjoy instant access to hundreds of free online games with zero ads and no downloads required.">
+    <!-- TODO: IMPORTANT! Replace with the full URL to your logo, e.g., https://your-domain.com/logo.png -->
+    <meta property="og:image" content="https://your-domain.com/logo.png">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://your-domain.com/">
+    <meta property="twitter:title" content="PlazeRox: Play Free Online Games Instantly">
+    <meta property="twitter:description" content="Enjoy instant access to hundreds of free online games with zero ads and no downloads required.">
+    <meta property="twitter:image" content="https://your-domain.com/logo.png">
+    <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebSite", "name": "PlazeRox", "url": "https://your-domain.com/", "potentialAction": { "@type": "SearchAction", "target": { "@type": "EntryPoint", "urlTemplate": "https://your-domain.com/index.html?q={search_term_string}" }, "query-input": "required name=search_term_string" } }
+    </script>
+    <!-- =================================================== -->
+    <!-- =============== SEO & META TAGS END =============== -->
+    <!-- =================================================== -->
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #121212; color: #e0e0e0; } a { text-decoration: none; color: inherit; } header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background-color: #1e1e1e; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; } .header-left { display: flex; align-items: center; gap: 1rem; } .menu-toggle { font-size: 1.8rem; background: none; border: none; color: #fff; cursor: pointer; padding: 0; } .logo { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #00aaff; } .btn { padding: 10px 20px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; } .btn-signup { background: linear-gradient(45deg, #00aaff, #0077cc); color: #fff; } .btn-account { background-color: #1d976c; color: #fff; } .side-nav { height: 100%; width: 280px; position: fixed; z-index: 1002; top: 0; left: 0; background-color: #1e1e1e; overflow-x: hidden; transition: 0.3s; padding-top: 60px; transform: translateX(-100%); } .side-nav.active { transform: translateX(0); } .side-nav .close-btn { position: absolute; top: 15px; right: 25px; font-size: 36px; color: #818181; cursor: pointer; } .side-nav h4 { padding: 8px 8px 8px 32px; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #00aaff; text-transform: uppercase; margin: 15px 0 5px 0; } .side-nav a { padding: 8px 8px 8px 32px; font-size: 1.1rem; color: #b0b0b0; display: block; } #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1001; } #overlay.active { display: block; } .search-section { padding: 1rem 1.5rem; background-color: #1e1e1e; } .search-bar-container { position: relative; } #search-input { width: 100%; padding: 15px 20px; font-size: 1.1rem; background-color: #2a2a2a; border: 2px solid #444; border-radius: 12px; color: #fff; outline: none; box-sizing: border-box; } #search-results { display: none; position: absolute; top: 110%; left: 0; width: 100%; background-color: #2a2a2a; border-radius: 12px; max-height: 400px; overflow-y: auto; z-index: 999; border: 1px solid #444; } .result-item { display: flex; align-items: center; padding: 10px 15px; border-bottom: 1px solid #3a3a3a; } .result-item img { width: 50px; height: 50px; object-fit: cover; border-radius: 8px; margin-right: 15px; } .hero-slider-section { padding: 2rem 1.5rem 0 1.5rem; } .hero-slider-container { position: relative; width: 100%; aspect-ratio: 16 / 8; overflow: hidden; border-radius: 15px; background-color: #1e1e1e;} .hero-slider-track { display: flex; height: 100%; transition: transform 0.5s ease-in-out; } .hero-slide { flex: 0 0 100%; position: relative; display: block; } .hero-slide img { width: 100%; height: 100%; object-fit: cover; } .hero-slide-title { position: absolute; bottom: 0; left: 0; width: 100%; padding: 1rem; box-sizing: border-box; color: #fff; font-size: 1.2rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .hero-slider-dots { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; } .hero-dot { width: 10px; height: 10px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.4); cursor: pointer; transition: all 0.3s ease; } .hero-dot.active { background-color: #fff; transform: scale(1.2); } main { padding: 2rem 1.5rem; } .games-section h2 { font-family: 'Orbitron', sans-serif; color: #00aaff; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 1.5rem; } .heading-center { text-align: center; } .heading-left { text-align: left; } .slider-container { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 20px; } .slider-container::-webkit-scrollbar { height: 8px; } .slider-container::-webkit-scrollbar-thumb { background: #00aaff; border-radius: 4px; } .game-card { flex: 0 0 300px; scroll-snap-align: center; background-color: #1e1e1e; border-radius: 10px; overflow: hidden; border: 1px solid #333; } .game-card img { width: 100%; height: 180px; object-fit: cover; } .game-card .game-name { font-size: 1.2rem; font-weight: 700; padding: 15px; text-align: center; background-color: #252525; } #new-games-section { margin-top: 3rem; } @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } .skeleton { animation: shimmer 2s infinite linear; background: linear-gradient(to right, #2a2a2a 4%, #3a3a3a 25%, #2a2a2a 36%); background-size: 2000px 100%; } .skeleton-card { flex: 0 0 300px; background-color: #1e1e1e; border-radius: 10px; overflow: hidden; border: 1px solid #333; } .skeleton-image { height: 180px; } .skeleton-text { height: 20px; margin: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <a href="index.html"><img src="logo.png" alt="PlazeRox Logo" class="logo"></a>
+        </div>
+        <div class="header-right" id="auth-container"></div>
+    </header>
+
+    <div id="side-nav" class="side-nav">
+        <span class="close-btn" id="close-btn">×</span>
+        <h4>Games</h4><a href="race.html">Racing</a><a href="brain.html">Brain</a><a href="timepass.html">Timepass</a><a href="multi.html">Multiple</a><a href="solo.html">Sologames</a>
+        <h4>Website</h4><a href="about.html">About Us</a><a href="privacy.html">Privacy Policy</a><a href="links.html">Our Links</a><a href="goal.html">Our Goal</a>
+        <div class="thankyou">Thankyou..</div>
+    </div>
+    <div id="overlay"></div>
+
+    <section class="search-section">
+        <div class="search-bar-container"><input type="text" id="search-input" placeholder="Search for games..."><div id="search-results"></div></div>
+    </section>
+
+    <section class="hero-slider-section">
+        <div class="hero-slider-container" id="hero-slider-container">
+            <div class="hero-slider-track" id="hero-slider-track"></div>
+            <div class="hero-slider-dots" id="hero-slider-dots"></div>
+        </div>
+    </section>
+
+    <main>
+        <h1 style="position:absolute; left:-10000px;">PlazeRox - Your Hub for Free Instant Games</h1>
+        <section class="games-section">
+            <h2 class="heading-center">Our Games</h2>
+            <div class="slider-container" id="game-slider"></div>
+        </section>
+        <section class="games-section" id="new-games-section" style="display: none;">
+            <h2 class="heading-left">New Games</h2>
+            <div class="slider-container" id="new-games-slider"></div>
+        </section>
+    </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const auth = firebase.auth();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            let allGamesList = [];
+            const heroSliderContainer = document.getElementById('hero-slider-container');
+            const heroTrack = document.getElementById('hero-slider-track');
+            const heroDotsContainer = document.getElementById('hero-slider-dots');
+            const gameSlider = document.getElementById('game-slider');
+            const newGamesSlider = document.getElementById('new-games-slider');
+            const newGamesSection = document.getElementById('new-games-section');
+            let heroSlidesData = [], currentHeroSlide = 0, heroSliderInterval;
+
+            // --- SKELETON LOADER FUNCTIONS (RESTORED) ---
+            function createSkeletonCard() {
+                const card = document.createElement('div');
+                card.className = 'skeleton-card';
+                card.innerHTML = `<div class="skeleton skeleton-image"></div><div class="skeleton skeleton-text"></div>`;
+                return card;
+            }
+            function showLoaders() {
+                heroTrack.innerHTML = `<div class="hero-slide skeleton" style="height: 100%;"></div>`;
+                for (let i = 0; i < 5; i++) {
+                    gameSlider.appendChild(createSkeletonCard());
+                    newGamesSlider.appendChild(createSkeletonCard());
+                }
+            }
+            showLoaders();
+
+            // --- MENU AND AUTH LOGIC (UNCHANGED) ---
+            const authContainer = document.getElementById('auth-container');
+            const menuToggle = document.getElementById('menu-toggle');
+            const sideNav = document.getElementById('side-nav');
+            const overlay = document.getElementById('overlay');
+            menuToggle.addEventListener('click', () => { sideNav.classList.add('active'); overlay.classList.add('active'); });
+            document.getElementById('close-btn').addEventListener('click', () => { sideNav.classList.remove('active'); overlay.classList.remove('active'); });
+            overlay.addEventListener('click', () => { sideNav.classList.remove('active'); overlay.classList.remove('active'); });
+            auth.onAuthStateChanged(user => { authContainer.innerHTML = user ? `<a href="account.html" class="btn btn-account">Your Account</a>` : `<a href="sign.html" class="btn btn-signup">Sign Up</a>`; });
+            
+            // --- FETCH DATA AND POPULATE CONTENT ---
+            database.ref('games').on('value', snapshot => {
+                const games = snapshot.val();
+                if (games) {
+                    allGamesList = Object.keys(games).map(key => ({ id: key, ...games[key] }));
+                    populateHeroSlider(allGamesList);
+                    populateSlider(gameSlider, allGamesList);
+                    populateSlider(newGamesSlider, [...allGamesList].reverse().slice(0, 10));
+                    newGamesSection.style.display = 'block';
+                } else {
+                    heroTrack.innerHTML = '';
+                    gameSlider.innerHTML = '<p>No games found.</p>';
+                    newGamesSection.style.display = 'none';
+                }
+            });
+
+            // --- HERO SLIDER LOGIC (RESTORED) ---
+            function populateHeroSlider(gamesList) {
+                heroTrack.innerHTML = '';
+                heroDotsContainer.innerHTML = '';
+                heroSlidesData = shuffleArray([...gamesList]).slice(0, 5);
+                if (heroSlidesData.length === 0) { heroSliderContainer.style.display = 'none'; return; }
+                heroSliderContainer.style.display = 'block';
+                heroSlidesData.forEach((game, index) => {
+                    const slide = document.createElement('a');
+                    slide.href = `game.html?id=${game.id}`;
+                    slide.className = 'hero-slide';
+                    slide.innerHTML = `<img src="${game.imageUrl}" alt="Promotional banner for ${game.name}"><div class="hero-slide-title">${game.name}</div>`;
+                    heroTrack.appendChild(slide);
+                    const dot = document.createElement('span');
+                    dot.className = 'hero-dot';
+                    dot.dataset.index = index;
+                    dot.addEventListener('click', () => { goToHeroSlide(index); resetHeroInterval(); });
+                    heroDotsContainer.appendChild(dot);
+                });
+                goToHeroSlide(0);
+                resetHeroInterval();
+            }
+            function goToHeroSlide(index) {
+                if (!heroTrack) return;
+                heroTrack.style.transform = `translateX(-${index * 100}%)`;
+                currentHeroSlide = index;
+                const dots = document.querySelectorAll('.hero-dot');
+                dots.forEach((dot, idx) => dot.classList.toggle('active', idx === currentHeroSlide));
+            }
+            function resetHeroInterval() {
+                clearInterval(heroSliderInterval);
+                if (heroSlidesData.length > 1) {
+                    heroSliderInterval = setInterval(() => {
+                        const nextSlide = (currentHeroSlide + 1) % heroSlidesData.length;
+                        goToHeroSlide(nextSlide);
+                    }, 4000);
+                }
+            }
+            heroSliderContainer.addEventListener('mouseover', () => clearInterval(heroSliderInterval));
+            heroSliderContainer.addEventListener('mouseout', resetHeroInterval);
+            
+            // --- OTHER FUNCTIONS (RESTORED) ---
+            function populateSlider(sliderElement, gamesList) {
+                sliderElement.innerHTML = '';
+                if(gamesList.length > 0) {
+                    gamesList.forEach(game => sliderElement.appendChild(createGameCard(game)));
+                } else {
+                    sliderElement.innerHTML = '<p>No games here yet.</p>';
+                }
+            }
+            function createGameCard(game) {
+                const card = document.createElement('a');
+                card.href = `game.html?id=${game.id}`;
+                card.className = 'game-card';
+                card.innerHTML = `<img src="${game.imageUrl}" alt="Cover art for ${game.name} game"><h3 class="game-name">${game.name}</h3>`;
+                return card;
+            }
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; }
+                return array;
+            }
+            
+            // --- SEARCH LOGIC (RESTORED) ---
+            const searchInput = document.getElementById('search-input');
+            const searchResultsContainer = document.getElementById('search-results');
+            searchInput.addEventListener('input', e => {
+                const query = e.target.value.toLowerCase();
+                if (query.length === 0) { searchResultsContainer.style.display = 'none'; return; }
+                const filteredGames = allGamesList.filter(game => game.name.toLowerCase().includes(query));
+                searchResultsContainer.innerHTML = '';
+                if (filteredGames.length > 0) {
+                    filteredGames.forEach(game => {
+                        const item = document.createElement('a');
+                        item.href = `game.html?id=${game.id}`;
+                        item.className = 'result-item';
+                        item.innerHTML = `<img src="${game.imageUrl}" alt="${game.name}"><span class="name">${game.name}</span>`;
+                        searchResultsContainer.appendChild(item);
+                    });
+                } else { searchResultsContainer.innerHTML = '<div class="result-item"><span class="name">No games found</span></div>'; }
+                searchResultsContainer.style.display = 'block';
+            });
+            document.addEventListener('click', e => { if (!e.target.closest('.search-bar-container')) { searchResultsContainer.style.display = 'none'; } });
+        });
+    </script>
+</body>
+</html>

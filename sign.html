@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - PlazeRox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; margin: 0; background-color: #121212; color: #e0e0e0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; }
+        .logo-header { text-align: center; margin-bottom: 2rem; }
+        .logo-link { text-decoration: none; color: inherit; }
+        .logo { height: 80px; width: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #00aaff; }
+        .logo-name { display: block; font-family: 'Orbitron', sans-serif; font-size: 2.5rem; color: #fff; text-transform: uppercase; margin-top: 0.5rem; }
+        .auth-container { background-color: #1e1e1e; padding: 2rem; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); width: 100%; max-width: 400px; box-sizing: border-box; }
+        h2 { text-align: center; color: #fff; font-family: 'Orbitron', sans-serif; margin-top: 0; }
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 700; }
+        input[type="text"], input[type="email"], input[type="password"] { width: 100%; padding: 12px; background-color: #2a2a2a; border: 1px solid #444; border-radius: 5px; color: #e0e0e0; font-size: 1rem; box-sizing: border-box; }
+        .privacy-policy { display: flex; align-items: center; margin-bottom: 1.5rem; }
+        #privacy-check { margin-right: 10px; width: 18px; height: 18px; }
+        .privacy-policy label a { color: #00aaff; text-decoration: none; }
+        .btn-submit { width: 100%; padding: 12px; font-size: 1.1rem; border-radius: 5px; border: none; color: #fff; font-weight: 700; cursor: pointer; transition: all 0.3s; background-color: #1d976c; }
+        .btn-submit:hover:not(:disabled) { background-color: #28b485; transform: translateY(-2px); }
+        .btn-submit:disabled { background-color: #555; cursor: not-allowed; }
+        .link-container { text-align: center; margin-top: 1.5rem; }
+        .link-container a { color: #00aaff; font-weight: bold; text-decoration: none; }
+        .message { margin-top: 1rem; text-align: center; font-weight: bold; padding: 10px; border-radius: 5px; }
+        .message.success { color: #1d976c; background-color: rgba(29, 151, 108, 0.1); }
+        .message.error { color: #e74c3c; background-color: rgba(231, 76, 60, 0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="logo-header">
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="PlazeRox Logo" class="logo">
+            <span class="logo-name">PlazeRox</span>
+        </a>
+    </div>
+
+    <div class="auth-container">
+        <h2>Create an Account</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="signup-name">Name</label>
+                <input type="text" id="signup-name" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" minlength="6" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" required>
+            </div>
+            <div class="privacy-policy">
+                <input type="checkbox" id="privacy-check">
+                <label for="privacy-check">I accept the <a href="privacy.html" target="_blank">Privacy Policy</a></label>
+            </div>
+            <button type="submit" id="signup-button" class="btn-submit" disabled>Sign Up</button>
+        </form>
+
+        <div class="link-container">
+            <a href="login.html">Already have an account? Login</a>
+        </div>
+        
+        <div id="message-container"></div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // --- Sign Up Page Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupForm = document.getElementById('signup-form');
+            const privacyCheckbox = document.getElementById('privacy-check');
+            const signupButton = document.getElementById('signup-button');
+            const messageContainer = document.getElementById('message-container');
+
+            // Enable/disable button based on checkbox
+            privacyCheckbox.addEventListener('change', () => {
+                signupButton.disabled = !privacyCheckbox.checked;
+            });
+
+            // Sign Up Handler
+            signupForm.addEventListener('submit', e => {
+                e.preventDefault();
+                
+                const name = document.getElementById('signup-name').value;
+                const email = document.getElementById('signup-email').value;
+                const password = document.getElementById('signup-password').value;
+                const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+                // Validation
+                if (password !== confirmPassword) {
+                    showMessage('Passwords do not match.', 'error');
+                    return;
+                }
+                if (password.length < 6) {
+                    showMessage('Password must be at least 6 characters long.', 'error');
+                    return;
+                }
+
+                // Create user with Firebase Auth
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(userCredential => {
+                        // User created. Now, update their profile with the name.
+                        const user = userCredential.user;
+                        return user.updateProfile({
+                            displayName: name
+                        });
+                    })
+                    .then(() => {
+                        // Profile updated successfully.
+                        showMessage('Account created successfully! Redirecting...', 'success');
+                        setTimeout(() => window.location.href = 'index.html', 2000);
+                    })
+                    .catch(error => {
+                        showMessage(error.message, 'error');
+                    });
+            });
+
+            function showMessage(text, type) {
+                messageContainer.innerHTML = `<div class="message ${type}">${text}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>

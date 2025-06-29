@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racing Games - PlazeRox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Page Styles --- */
+        body { font-family: 'Poppins', sans-serif; margin: 0; background-color: #121212; color: #e0e0e0; }
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Consistent Header & Side Nav Styles --- */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background-color: #1e1e1e; border-bottom: 2px solid #333; position: sticky; top: 0; z-index: 1000; }
+        .header-left { display: flex; align-items: center; gap: 1rem; }
+        .menu-toggle { font-size: 1.8rem; background: none; border: none; color: #fff; cursor: pointer; padding: 0; }
+        .logo { height: 50px; width: 50px; border-radius: 50%; object-fit: cover; border: 2px solid #00aaff; }
+        .btn { padding: 10px 20px; border-radius: 8px; font-weight: 700; border: none; cursor: pointer; }
+        .btn-signup { background: linear-gradient(45deg, #00aaff, #0077cc); color: #fff; text-decoration: none; }
+        .btn-account { background-color: #1d976c; color: #fff; text-decoration: none; }
+        .side-nav { height: 100%; width: 280px; position: fixed; z-index: 1002; top: 0; left: 0; background-color: #1e1e1e; overflow-x: hidden; transition: 0.3s; padding-top: 60px; transform: translateX(-100%); }
+        .side-nav.active { transform: translateX(0); }
+        .side-nav .close-btn { position: absolute; top: 15px; right: 25px; font-size: 36px; color: #818181; cursor: pointer; }
+        .side-nav h4 { padding: 8px 8px 8px 32px; font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #00aaff; text-transform: uppercase; margin: 15px 0 5px 0; }
+        .side-nav a { padding: 8px 8px 8px 32px; text-decoration: none; font-size: 1.1rem; color: #b0b0b0; display: block; transition: 0.3s; }
+        .side-nav a:hover { color: #fff; }
+        .side-nav .thankyou { padding: 8px 8px 8px 32px; font-size: 1rem; color: #818181; position: absolute; bottom: 20px; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1001; }
+        #overlay.active { display: block; }
+
+        /* --- Main Content for Category Page --- */
+        main { padding: 2rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+        .page-header { text-align: center; margin-bottom: 2rem; }
+        .main-title { font-family: 'Orbitron', sans-serif; color: #00aaff; font-size: 2.5rem; text-transform: uppercase; margin-bottom: 1rem; }
+        #search-input { width: 100%; max-width: 500px; margin: 0 auto; padding: 12px 15px; font-size: 1rem; background-color: #2a2a2a; border: 2px solid #444; border-radius: 10px; color: #fff; outline: none; box-sizing: border-box; }
+        #search-input:focus { border-color: #00aaff; }
+
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .game-card { background-color: #1e1e1e; border-radius: 10px; overflow: hidden; border: 1px solid #333; transition: transform 0.2s ease-in-out; }
+        .game-card:hover { transform: translateY(-5px); }
+        .game-card img { width: 100%; height: 140px; object-fit: cover; display: block; }
+        .game-card .game-name { font-size: 1.1rem; font-weight: 700; padding: 15px; text-align: center; background-color: #252525; }
+        #no-games-message { text-align: center; font-size: 1.2rem; color: #888; padding: 3rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <a href="index.html"><img src="logo.png" alt="PlazeRox Logo" class="logo"></a>
+        </div>
+        <div class="header-right" id="auth-container">
+            <!-- Auth button loads here -->
+        </div>
+    </header>
+
+    <!-- Side Navigation Menu -->
+    <div id="side-nav" class="side-nav">
+        <span class="close-btn" id="close-btn">×</span>
+        <h4>Games</h4>
+        <a href="race.html">Racing</a>
+        <a href="brain.html">Brain</a>
+        <a href="timepass.html">Timepass</a>
+        <a href="multi.html">Multiple</a>
+        <a href="solo.html">Sologames</a>
+        <h4>Website</h4>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="links.html">Our Links</a>
+        <a href="goal.html">Our Goal</a>
+        <div class="thankyou">Thankyou..</div>
+    </div>
+    <div id="overlay"></div>
+
+    <main>
+        <div class="page-header">
+            <h1 class="main-title">Racing Games</h1>
+            <input type="text" id="search-input" placeholder="Search within this category...">
+        </div>
+        
+        <div class="games-grid" id="category-games-grid">
+            <p id="no-games-message">Loading racing games...</p>
+        </div>
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+          apiKey: "AIzaSyABe6bIbmfwsnfAXPme2sSBpLsVGbXewLo",
+          authDomain: "jsksksksks-f203a.firebaseapp.com",
+          databaseURL: "https://jsksksksks-f203a-default-rtdb.firebaseio.com",
+          projectId: "jsksksksks-f203a",
+          storageBucket: "jsksksksks-f203a.firebasestorage.app",
+          messagingSenderId: "92434876910",
+          appId: "1:92434876910:web:fb557e5236d71c98b166ff",
+          measurementId: "G-XRS4CPFF5H"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const database = firebase.database();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Page Elements
+            const authContainer = document.getElementById('auth-container');
+            const searchInput = document.getElementById('search-input');
+            const gamesGrid = document.getElementById('category-games-grid');
+            const noGamesMessage = document.getElementById('no-games-message');
+            
+            // Menu Elements
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeBtn = document.getElementById('close-btn');
+            const sideNav = document.getElementById('side-nav');
+            const overlay = document.getElementById('overlay');
+
+            let categoryGames = []; // This will hold only the games for this category
+
+            // --- Menu Logic ---
+            menuToggle.addEventListener('click', () => { sideNav.classList.add('active'); overlay.classList.add('active'); });
+            closeBtn.addEventListener('click', () => { sideNav.classList.remove('active'); overlay.classList.remove('active'); });
+            overlay.addEventListener('click', () => { sideNav.classList.remove('active'); overlay.classList.remove('active'); });
+
+            // --- Auth Button Logic ---
+            auth.onAuthStateChanged(user => {
+                authContainer.innerHTML = user 
+                    ? `<a href="account.html" class="btn btn-account">Your Account</a>`
+                    : `<a href="sign.html" class="btn btn-signup">Sign Up</a>`;
+            });
+
+            // 1. Fetch ALL games and filter for the "Racing" tag
+            database.ref('games').once('value', snapshot => {
+                const allGames = snapshot.val();
+                if (allGames) {
+                    const allGamesList = Object.keys(allGames).map(key => ({ id: key, ...allGames[key] }));
+                    
+                    // Filter for games with the "Racing" tag (case-insensitive)
+                    categoryGames = allGamesList.filter(game => 
+                        game.tags && game.tags.some(tag => tag.toLowerCase() === 'solo')
+                    );
+                    
+                    renderGames(categoryGames);
+                } else {
+                    renderGames([]); // Render with an empty array to show the message
+                }
+            });
+
+            // 2. Add listener to the search bar to filter the displayed games
+            searchInput.addEventListener('input', e => {
+                const query = e.target.value.toLowerCase();
+                const filtered = categoryGames.filter(game => 
+                    game.name.toLowerCase().includes(query)
+                );
+                renderGames(filtered);
+            });
+
+            // 3. A single function to render games to the grid
+            function renderGames(gamesToDisplay) {
+                gamesGrid.innerHTML = ''; // Clear the grid
+                
+                if (gamesToDisplay.length > 0) {
+                    gamesToDisplay.forEach(game => {
+                        const card = document.createElement('a');
+                        card.href = `game.html?id=${game.id}`;
+                        card.className = 'game-card';
+                        card.innerHTML = `
+                            <img src="${game.imageUrl}" alt="${game.name}">
+                            <h3 class="game-name">${game.name}</h3>`;
+                        gamesGrid.appendChild(card);
+                    });
+                } else {
+                    noGamesMessage.textContent = 'No matching racing games found.';
+                    gamesGrid.appendChild(noGamesMessage);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
